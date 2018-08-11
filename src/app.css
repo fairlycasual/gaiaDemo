@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: local('Avenir-Medium'), url(./fonts/Avenir-Medium.woff) format('woff');
+}
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+
+#hero {
+  position: absolute;
+  font-family: 'Avenir-Medium';
+  text-decoration-color: white;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-description{
+  width: 60%;
+  font-size: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white; 
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-85%, -350%);
+}
+
+.hero-title {
+  width: 20%;
+  font-family: 'Avenir-Medium';
+  font-size: 35px;
+  color: white; 
+  position: relative;
+  float: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -425%);
+  border: 2px solid white;
+  padding: 5px;
+}

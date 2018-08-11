@@ -9,8 +9,12 @@ class Hero extends Component {
   render() {
     return (
       <div id="hero">
-        <div className="background-image">
-          <img src={this.props.backgroundImage} />
+        <img src={this.props.backgroundImage} />
+        <div className="hero-title">
+          {this.props.title}
+        </div>
+        <div className="hero-description">
+          {this.props.description}
         </div>
       </div>
     );

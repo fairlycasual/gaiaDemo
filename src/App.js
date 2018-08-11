@@ -48,7 +48,7 @@ class App extends Component {
     // function to isolate hero banner image, pass as prop to Hero component
     generateHeroImg(data) {
       // eventually generate the array for screen sizes
-      let img = data.term.termImages.hero.hero_1125x414;
+      let img = data.term.termImages.hero.hero_1440x300;
       this.setState({ heroBanner: img });
     }
 
@@ -82,9 +82,9 @@ class App extends Component {
   render() {
     {console.log('current state in initial render', this.state)}
     return (
-      <div>
+      <div id="app">
         Hello WilburxFranklin!
-      <Hero backgroundImage={this.state.heroBanner} />
+      <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
       </div>
     );
   }
