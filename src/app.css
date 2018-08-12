@@ -3,7 +3,29 @@
   src: local('Avenir-Medium'), url(./fonts/Avenir-Medium.woff) format('woff');
 }
 
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300');
+
+#header {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  float: left;
+  flex-direction: 'row';
+}
+
+.header-logo {
+  
+  float: left;
+  width: 5%;
+  height: auto;
+}
+
+.header-user {
+ 
+  float: right;
+  width: 20%;
+  font-size: 12px;
+}
 
 
 #hero {
@@ -12,6 +34,7 @@
   text-decoration-color: white;
   text-align: center;
   width: 100%;
+  left: 0;
   height: auto;
   background-size: cover;
   background-position: center;
@@ -26,7 +49,7 @@
   float: left;
   top: 50%;
   left: 50%;
-  transform: translate(-85%, -350%);
+  transform: translate(-85%, -315%);
 }
 
 .hero-title {
@@ -41,4 +64,18 @@
   transform: translate(-50%, -425%);
   border: 2px solid white;
   padding: 5px;
+}
+
+.video-container {
+  position: absolute;
+  display: inline-grid;
+  grid-column-gap: 10%;
+  grid-row-gap: 10%;
+  top: 55%;
+  width: 100%;
+  align-items: center;
+}
+
+.grid-item {
+  top: 50%;
 }

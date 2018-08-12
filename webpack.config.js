@@ -17,7 +17,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
+        
       },
       {
         test:/\.woff$/,
@@ -28,6 +29,19 @@ module.exports = {
             outputPath: 'fonts/'
           }
         }]
+      },
+      {
+        test:/\.png$/,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              disable: true
+            },
+          },
+        ]
       }
     ]
   },

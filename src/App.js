@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Hero from './Hero.jsx';
+import Header from './Header.jsx';
+import VideoContainer from './VideosContainer.jsx';
 import './app.css';
 
 const API = 'https://d6api.gaia.com/videos/term/119931';
@@ -15,6 +17,8 @@ class App extends Component {
       heroDescription: '',
       videoThumbnails: [],
       titles: [],
+      isLoggedIn: true,
+      userName: 'David'
 
     };
 
@@ -83,8 +87,9 @@ class App extends Component {
     {console.log('current state in initial render', this.state)}
     return (
       <div id="app">
-        Hello WilburxFranklin!
-      <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
+        <Header user={this.state.userName} />
+        <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
+        <VideoContainer videoThumbnails={this.state.videoThumbnails} />
       </div>
     );
   }
