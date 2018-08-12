@@ -8,14 +8,16 @@ class Tile extends Component {
   }
 
   render() {
+    console.log('in Tile component, title: ', this.props.title)
     return (
         <div id="tile">
           <img src={this.props.imageURL} />
+           <br /> 
           <div className="tile-title">
             {this.props.title}
-          </div>
-          <div className="video-description">
-            {this.props.title}
+            <br />
+            <br />
+            <br />
           </div>
         </div>
     );

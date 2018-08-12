@@ -71,8 +71,20 @@
   position: relative;
   display: inline-grid;
   width: 25%;
-  height: auto;
+  height: 25%;
+  background-color: white;
+  z-index: -1;
+}
 
+.tile-title {
+  height: 10%;
+  width: 45%;
+  text-decoration-color: black;
+  font-family: 'Avenir-Medium';
+  position: relative;
+  font-size: 12px;
+  float: left;
+  z-index: 1;
 }
 
 .video-container {
@@ -93,4 +105,6 @@
 
 .grid-item {
   top: 50%;
+  
+  
 }

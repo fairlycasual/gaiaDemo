@@ -36,7 +36,7 @@ class VideoContainer extends Component {
   renderTile(obj) {
     let tileArr = [];
     for (let key in obj) {
-      let title = obj.key;
+      let title = key;
       let url = obj[key]
       tileArr.push(<Tile title={title} imageURL={url} />);
     }
