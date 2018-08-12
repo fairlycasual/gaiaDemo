@@ -18,8 +18,8 @@ class App extends Component {
       videoThumbnails: [],
       titles: [],
       isLoggedIn: true,
-      userName: 'David'
-
+      userName: 'David',
+      informationObject: {}
     };
 
     this.generateThumbnails = this.generateThumbnails.bind(this);
@@ -27,6 +27,8 @@ class App extends Component {
     this.generateHeroImg = this.generateHeroImg.bind(this);
     this.generateHeroDescription = this.generateHeroDescription.bind(this);
     this.generateHeroTitle = this.generateHeroTitle.bind(this);
+    this.generateStateObject = this.generateStateObject.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
     // function to isolate thumbnails into array
@@ -68,28 +70,46 @@ class App extends Component {
       this.setState({ heroTitle: title });
     }
 
+    generateStateObject(state) {
+      console.log('generateStateObject called at render');
+      let keys = state.titles;
+      let values = state.videoThumbnails;
+      let info = {};
+
+      for (let i = 0; i < keys.length; i++) {
+        info[keys[i]] = values[i];
+      }
+
+      console.log('generateStateObject result: ', info);
+      this.setState({ informationObject: info });
+    }
+
+    updateState(data) {
+      this.generateThumbnails(data);
+      this.generateTitles(data);
+      this.generateHeroImg(data);
+      this.generateHeroDescription(data);
+      this.generateHeroTitle(data);
+    }
+
   componentDidMount() {
     fetch(API, {
       headers: { "Content-Type" : "application/json"}
     })
       .then(response => response.json())
       .then(data => {
-        this.generateThumbnails(data);
-        this.generateTitles(data);
-        this.generateHeroImg(data);
-        this.generateHeroDescription(data);
-        this.generateHeroTitle(data);
+        this.updateState(data);
       })
       .catch(error => console.error(error))
   }
   
   render() {
-    {console.log('current state in initial render', this.state)}
+    
     return (
       <div id="app">
         <Header user={this.state.userName} />
         <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
-        <VideoContainer videoThumbnails={this.state.videoThumbnails} />
+        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  />
       </div>
     );
   }

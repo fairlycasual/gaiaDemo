@@ -4,6 +4,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300');
+@import "../node_modules/video-react/dist/video-react.css";
 
 #header {
   position: absolute;
@@ -66,6 +67,14 @@
   padding: 5px;
 }
 
+#tile {
+  position: relative;
+  display: inline-grid;
+  width: 25%;
+  height: auto;
+
+}
+
 .video-container {
   position: absolute;
   display: inline-grid;
@@ -74,6 +83,12 @@
   top: 55%;
   width: 100%;
   align-items: center;
+}
+
+.video-description {
+  position: relative;
+  width: 100%;
+  height: auto;
 }
 
 .grid-item {
