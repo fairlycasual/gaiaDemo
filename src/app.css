@@ -20,11 +20,11 @@ button {
 }
 
 .dropdown-container {
-  
-  display: inline;
+ 
+  height: 30%;
   position: absolute;
   align-content: center;
-  top: -4%;
+  top: -2%;
   right: 5%;
   bottom: 100;
 }
@@ -37,7 +37,7 @@ button {
 }
 
 .grid-item {
-  padding-top: 0;
+  padding-top: 25px;
 }
 
 #header {
