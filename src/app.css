@@ -19,6 +19,27 @@ button {
   color: white;
 }
 
+.dropdown-container {
+  
+  display: inline;
+  position: absolute;
+  align-content: center;
+  top: -4%;
+  right: 5%;
+  bottom: 100;
+}
+
+.dropdown-text {
+  position: relative;
+  top: 0;
+  left: 35%;
+
+}
+
+.grid-item {
+  padding-top: 0;
+}
+
 #header {
   position: absolute;
   top: 0;
@@ -58,6 +79,7 @@ button {
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  
 }
 
 .hero-description{

@@ -4,9 +4,7 @@ import { Navbar,
          Nav, 
          NavItem, 
          FormGroup,
-         FormControl,
-         Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+         FormControl} from 'react-bootstrap';
 
 
 class Navigation extends React.Component {

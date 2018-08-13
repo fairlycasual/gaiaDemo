@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tile from './VideoTile.jsx';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 
 function imagesLoaded(parentNode) {
@@ -87,6 +88,18 @@ class VideoContainer extends Component {
           {console.log('in render, info object: ', info)}
           {this.renderSpinner()}
           {this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoThumbnails)}
+          <div className="dropdown-container">
+            <div className="dropdown-text">
+              SORT BY
+              <br />
+              <br />
+            </div>
+            <DropdownButton title="Recommended" id="dropdown-size-medium" style={{width: "100%", border: "1px solid black"}}>
+              <MenuItem>Recently Added</MenuItem>
+              <MenuItem>Most Popular</MenuItem>
+              <MenuItem>Alphabetical</MenuItem>
+            </DropdownButton>
+          </div>
           <div class="grid-item" >
             {this.renderTile(info)}
           </div>
