@@ -6,26 +6,44 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300');
 @import "../node_modules/video-react/dist/video-react.css";
 
+button {
+  width: 20%;
+  height: 150%;
+  bottom: 10px;
+  justify-content: center;
+  position: relative;
+  left: 35%;
+  font-family: 'Avenir-Medium';
+  font-size: 85%;
+  background-color: #536878;
+  color: white;
+}
+
 #header {
   position: absolute;
   top: 0;
-  width: 50%;
-  float: left;
-  flex-direction: 'row';
+  height: 50px;
+  float: right;
+  bottom: 10%;
 }
 
-.header-logo {
-  
+#header-image {
   float: left;
-  width: 5%;
+  width: 10%;
   height: auto;
 }
 
-.header-user {
- 
+.header-right {
   float: right;
+  font-size: 16px;
+  top: 50;
+}
+
+.header-user {
+  vertical-align: middle;
   width: 20%;
-  font-size: 12px;
+  height: auto;
+  font-size: 14px;
 }
 
 
@@ -34,11 +52,12 @@
   font-family: 'Avenir-Medium';
   text-decoration-color: white;
   text-align: center;
-  width: 100%;
+  width: 100vw;
   left: 0;
-  height: auto;
+  top: 15%;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
 
 .hero-description{
@@ -50,7 +69,7 @@
   float: left;
   top: 50%;
   left: 50%;
-  transform: translate(-85%, -315%);
+  transform: translate(-85%, -275%);
 }
 
 .hero-title {
@@ -64,7 +83,11 @@
   left: 50%;
   transform: translate(-50%, -425%);
   border: 2px solid white;
-  padding: 5px;
+  padding: 3px;
+}
+
+.navbar { 
+  width: 100%;
 }
 
 #tile {
@@ -92,7 +115,8 @@
   display: inline-grid;
   grid-column-gap: 10%;
   grid-row-gap: 10%;
-  top: 55%;
+  top: 65%;
+  left: 0.6%;
   width: 100%;
   align-items: center;
 }
@@ -101,10 +125,4 @@
   position: relative;
   width: 100%;
   height: auto;
-}
-
-.grid-item {
-  top: 50%;
-  
-  
 }

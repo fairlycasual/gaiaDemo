@@ -8,7 +8,7 @@ class Tile extends Component {
   }
 
   render() {
-    console.log('in Tile component, title: ', this.props.title)
+
     return (
         <div id="tile">
           <img src={this.props.imageURL} />

@@ -1,5 +1,5 @@
 const assetsObject = {
-  gaiaIcon: require('./photos/Gaia-Logo-Teal.png'),
+  gaiaIcon: require('./photos/Gaia.png'),
   userIcon: require('./photos/userIcon.png')
 }
 

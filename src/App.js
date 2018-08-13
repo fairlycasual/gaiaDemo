@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Hero from './Hero.jsx';
 import Header from './Header.jsx';
 import VideoContainer from './VideosContainer.jsx';
+import Navigation from './Nav.jsx';
 import './app.css';
 
 const API = 'https://d6api.gaia.com/videos/term/119931';
 
+library.add(faSearch)
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +23,7 @@ class App extends Component {
       videoThumbnails: [],
       titles: [],
       isLoggedIn: true,
-      userName: 'David',
+      userName: 'David ',
       informationObject: {}
     };
 
@@ -108,6 +113,9 @@ class App extends Component {
     return (
       <div id="app">
         <Header user={this.state.userName} />
+        
+          <Navigation />
+        
         <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
         <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  />
       </div>

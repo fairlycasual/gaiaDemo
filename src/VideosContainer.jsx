@@ -20,7 +20,8 @@ class VideoContainer extends Component {
     this.state = {
       gridPhotos: [],
       loading: true,
-      informationObject: {}
+      informationObject: {},
+      limit: 19
     }
 
     this.renderTile = this.renderTile.bind(this);
@@ -28,12 +29,14 @@ class VideoContainer extends Component {
     this.handleStateChange = this.handleStateChange.bind(this);
     this.generateStateObject = this.generateStateObject.bind(this);
     this.renderTile = this.renderTile.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
   
   // change to render component and pass more than just URL
   // need image url, title string, and the description string. no trailer link in response?
   // <VideoTile title={this.}
   renderTile(obj) {
+    console.log('render tile object: ', obj)
     let tileArr = [];
     for (let key in obj) {
       let title = key;
@@ -58,26 +61,26 @@ class VideoContainer extends Component {
     });
   }
 
+  loadMore() {
+    let newLimit = this.state.limit + 20;
+    this.setState({ limit: newLimit });
+    console.log('new limit: ', this.state.limit)
+  }
+
   generateStateObject(videoTitle, imageURL) {
     let keys = videoTitle;
     let values = imageURL;
 
-    // console.log('keys in gSO: ', keys);
     const closure = () => {
-      // console.log('generateStateObject called at render, titles passed in: ', videoTitle);
-
-      for (let i = 0; i < keys.length; i++) {
+      for (let i = 0; i < this.state.limit; i++) {
         info[keys[i]] = values[i];
       }
-      console.log(info);
     };
-
     closure()
   }
 
   updateState() {
     this.setState({informationObject: info});
-    console.log(this.state);
   }
 
   // componentWillMount() {
@@ -93,6 +96,9 @@ class VideoContainer extends Component {
           <div class="grid-item" >
             {this.renderTile(info)}
           </div>
+          <button onClick={this.loadMore}>
+            Load More
+          </button>
         </div>
       )
     }

@@ -10,13 +10,13 @@ class Header extends Component {
   render() {
     return (
       <div class="header">
-        
-          <img src={assets.gaiaIcon} />
-       
-        
+        <div class="header-image">
+          <img id="header-image" src={assets.gaiaIcon} />
+        </div>
+        <div class="header-right">
           {this.props.user}
           <img src={assets.userIcon} />
-        
+        </div>       
       </div>
     )
   }
