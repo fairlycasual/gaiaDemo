@@ -7,7 +7,7 @@ The re-creation of a sub-category listing for the web application.
 Clone this repository
 `git clone https://github.com/fairlycasual/gaiaDemo.git`
 
-Install Dependencies
+Change into the project's directory and install Dependencies
 `npm install`
 
 Note that the bundle is prepared in this repo from before it was pushed. If however, you need to alter any static files that are bundled, run 
