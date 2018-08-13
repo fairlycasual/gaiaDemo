@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import Hero from './Hero.jsx';
-import Header from './Header.jsx';
-import VideoContainer from './VideosContainer.jsx';
-import Navigation from './Nav.jsx';
+import Hero from './Components/Hero.jsx';
+import Header from './Components/Header.jsx';
+import VideoContainer from './Components/VideosContainer.jsx';
+import Navigation from './Components/Nav.jsx';
 import './app.css';
 
 const API = 'https://d6api.gaia.com/videos/term/119931';
@@ -23,8 +23,9 @@ class App extends Component {
       videoThumbnails: [],
       titles: [],
       likes: [],
+      times: [],
       isLoggedIn: true,
-      userName: 'David ',
+      userName: 'DAVID',
       
     };
 
@@ -34,6 +35,7 @@ class App extends Component {
     this.generateHeroImg = this.generateHeroImg.bind(this);
     this.generateHeroDescription = this.generateHeroDescription.bind(this);
     this.generateHeroTitle = this.generateHeroTitle.bind(this);
+    this.generateTimes = this.generateTimes.bind(this);
     this.updateState = this.updateState.bind(this);
   }
 
@@ -67,6 +69,26 @@ class App extends Component {
       this.setState({ likes: likesArr });
     }
 
+    // function to isolate video runtimes to array
+    generateTimes(data) {
+      let timesArr = [];
+      for (let i = 0; i < data.titles.length; i++) {
+        if (data.titles[i].feature) {
+          let time = data.titles[i].feature.duration;
+          console.log('time', time);
+          let minutes = Math.round(time / 60);
+          timesArr.push(minutes + ' mins')
+          
+        } else {
+          let seasons = data.titles[i].season_nums.length;
+          console.log('seasons', seasons);
+          timesArr.push(seasons + ' Seasons');
+          
+        }
+      }
+      this.setState({ times: timesArr });
+    }
+
     // function to isolate hero banner image, pass as prop to Hero component
     generateHeroImg(data) {
       // eventually generate the array for screen sizes
@@ -82,13 +104,14 @@ class App extends Component {
 
     // ... hero title ... 
     generateHeroTitle(data) {
-      let title = data.term.name;
+      let title = data.term.name.toUpperCase();
       this.setState({ heroTitle: title });
     }
 
     updateState(data) {
       this.generateThumbnails(data);
       this.generateTitles(data);
+      this.generateTimes(data);
       this.generateLikes(data);
       this.generateHeroImg(data);
       this.generateHeroDescription(data);
@@ -107,15 +130,13 @@ class App extends Component {
   }
   
   render() {
-    
+    {console.log('in render, state: ', this.state)}
     return (
       <div id="app">
         <Header user={this.state.userName} />
-        
-          <Navigation />
-        
+        <Navigation />
         <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
-        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  videoLikes={this.state.likes}/>
+        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  videoLikes={this.state.likes} videoTimes={this.state.times}/>
       </div>
     );
   }

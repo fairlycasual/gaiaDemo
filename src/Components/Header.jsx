@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const assets = require('./assets.js');
+const assets = require('../assets.js');
 
 class Header extends Component {
   constructor(props) {

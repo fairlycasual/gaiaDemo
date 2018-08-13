@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const assets = require('./assets.js');
+const assets = require('../assets.js');
 
 class Tile extends Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class Tile extends Component {
           <div className="tile-title">
             {this.props.title} 
             <br />
+            {this.props.time}
             <br />
             <br />
             <div className="tile-likes">

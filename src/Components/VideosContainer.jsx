@@ -22,7 +22,7 @@ class VideoContainer extends Component {
       gridPhotos: [],
       loading: true,
       informationObject: {},
-      limit: 19
+      limit: 20
     }
 
     this.renderTile = this.renderTile.bind(this);
@@ -37,11 +37,14 @@ class VideoContainer extends Component {
     console.log('render tile object length: ', Object.keys(obj).length)
     let tileArr = [];
     for (let key in obj) {
-      let title = key;
-      let url = obj[key].url;
-      let likes = obj[key].likes;
-
-      tileArr.push(<Tile title={title} imageURL={url} likes={likes} />);
+     
+        let title = key;
+        let url = obj[key].url;
+        let likes = obj[key].likes;
+        let time = obj[key].time
+        tileArr.push(<Tile title={title} time={time} imageURL={url} likes={likes} />);
+      
+      
     }
     return tileArr;
   }
@@ -67,34 +70,35 @@ class VideoContainer extends Component {
     console.log('new limit: ', this.state.limit)
   }
 
-  generateStateObject(videoTitle, videoLikes, imageURL) {
-    console.log('gso likes Arr: ', videoLikes);
+  generateStateObject(videoTitle, videoLikes, videoTimes, imageURL) {
+    console.log('gso times: ', videoTimes);
     let keys = videoTitle;
     let urls = imageURL;
     let likes = videoLikes;
+    let times = videoTimes;
     
-
-    const closure = () => {
-      for (let i = 0; i < this.state.limit; i++) {
-        info[keys[i]] = {'url': urls[i], 'likes': likes[i]}
-      }
-    };
-    closure()
+    for (let i = 0; i < this.state.limit; i++) {
+      info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]}
+    }
   }
 
     render() {
+      { if(this.props.videoTitles.length === 0) return null;
+        this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoTimes, this.props.videoThumbnails)
+      }
+      {console.log('info object in render ', info)}
+
       return (
         <div className="video-container" ref={element => { this.galleryElement = element; }}>
           {console.log('in render, info object: ', info)}
           {this.renderSpinner()}
-          {this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoThumbnails)}
           <div className="dropdown-container">
             <div className="dropdown-text">
               SORT BY
               <br />
               <br />
             </div>
-            <DropdownButton title="Recommended" id="dropdown-size-medium" style={{width: "100%", border: "1px solid black"}}>
+            <DropdownButton title="Recommended" noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
               <MenuItem>Recently Added</MenuItem>
               <MenuItem>Most Popular</MenuItem>
               <MenuItem>Alphabetical</MenuItem>
@@ -103,8 +107,8 @@ class VideoContainer extends Component {
           <div class="grid-item" >
             {this.renderTile(info)}
           </div>
-          <button onClick={this.loadMore}>
-            Load More
+          <button onClick={this.loadMore} >
+            LOAD MORE
           </button>
         </div>
       )
