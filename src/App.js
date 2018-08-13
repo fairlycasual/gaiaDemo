@@ -22,17 +22,18 @@ class App extends Component {
       heroDescription: '',
       videoThumbnails: [],
       titles: [],
+      likes: [],
       isLoggedIn: true,
       userName: 'David ',
-      informationObject: {}
+      
     };
 
     this.generateThumbnails = this.generateThumbnails.bind(this);
     this.generateTitles = this.generateTitles.bind(this);
+    this.generateLikes = this.generateLikes.bind(this);
     this.generateHeroImg = this.generateHeroImg.bind(this);
     this.generateHeroDescription = this.generateHeroDescription.bind(this);
     this.generateHeroTitle = this.generateHeroTitle.bind(this);
-    this.generateStateObject = this.generateStateObject.bind(this);
     this.updateState = this.updateState.bind(this);
   }
 
@@ -56,6 +57,16 @@ class App extends Component {
       this.setState({ titles: titlesArr });
     }
 
+    // function to isolate likes on videos to array
+    generateLikes(data) {
+      let likesArr = [];
+      for (let i = 0; i < data.titles.length; i++) {
+        let title = data.titles[i].fivestar.up_count.value;
+        likesArr.push(title);
+      }
+      this.setState({ likes: likesArr });
+    }
+
     // function to isolate hero banner image, pass as prop to Hero component
     generateHeroImg(data) {
       // eventually generate the array for screen sizes
@@ -75,23 +86,10 @@ class App extends Component {
       this.setState({ heroTitle: title });
     }
 
-    generateStateObject(state) {
-      console.log('generateStateObject called at render');
-      let keys = state.titles;
-      let values = state.videoThumbnails;
-      let info = {};
-
-      for (let i = 0; i < keys.length; i++) {
-        info[keys[i]] = values[i];
-      }
-
-      console.log('generateStateObject result: ', info);
-      this.setState({ informationObject: info });
-    }
-
     updateState(data) {
       this.generateThumbnails(data);
       this.generateTitles(data);
+      this.generateLikes(data);
       this.generateHeroImg(data);
       this.generateHeroDescription(data);
       this.generateHeroTitle(data);
@@ -117,7 +115,7 @@ class App extends Component {
           <Navigation />
         
         <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
-        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  />
+        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  videoLikes={this.state.likes}/>
       </div>
     );
   }

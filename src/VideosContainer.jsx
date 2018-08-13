@@ -31,17 +31,16 @@ class VideoContainer extends Component {
     this.renderTile = this.renderTile.bind(this);
     this.loadMore = this.loadMore.bind(this);
   }
-  
-  // change to render component and pass more than just URL
-  // need image url, title string, and the description string. no trailer link in response?
-  // <VideoTile title={this.}
+
   renderTile(obj) {
-    console.log('render tile object: ', obj)
+    console.log('render tile object length: ', Object.keys(obj).length)
     let tileArr = [];
     for (let key in obj) {
       let title = key;
-      let url = obj[key]
-      tileArr.push(<Tile title={title} imageURL={url} />);
+      let url = obj[key].url;
+      let likes = obj[key].likes;
+
+      tileArr.push(<Tile title={title} imageURL={url} likes={likes} />);
     }
     return tileArr;
   }
@@ -67,32 +66,27 @@ class VideoContainer extends Component {
     console.log('new limit: ', this.state.limit)
   }
 
-  generateStateObject(videoTitle, imageURL) {
+  generateStateObject(videoTitle, videoLikes, imageURL) {
+    console.log('gso likes Arr: ', videoLikes);
     let keys = videoTitle;
-    let values = imageURL;
+    let urls = imageURL;
+    let likes = videoLikes;
+    
 
     const closure = () => {
       for (let i = 0; i < this.state.limit; i++) {
-        info[keys[i]] = values[i];
+        info[keys[i]] = {'url': urls[i], 'likes': likes[i]}
       }
     };
     closure()
   }
 
-  updateState() {
-    this.setState({informationObject: info});
-  }
-
-  // componentWillMount() {
-  //   this.generateStateObject(this.props.videoTitles, this.props.videoThumbnails);
-  //   this.setState({ informationObject: info });
-  // }
-
     render() {
       return (
         <div className="video-container" ref={element => { this.galleryElement = element; }}>
+          {console.log('in render, info object: ', info)}
           {this.renderSpinner()}
-          {this.generateStateObject(this.props.videoTitles, this.props.videoThumbnails)}
+          {this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoThumbnails)}
           <div class="grid-item" >
             {this.renderTile(info)}
           </div>

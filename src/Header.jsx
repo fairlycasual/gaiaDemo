@@ -9,11 +9,11 @@ class Header extends Component {
   // THIS COMPONENT NEEDS TO BE FIXED FOR LAYOUT
   render() {
     return (
-      <div class="header">
-        <div class="header-image">
+      <div className="header">
+        <div className="header-image">
           <img id="header-image" src={assets.gaiaIcon} />
         </div>
-        <div class="header-right">
+        <div className="header-right">
           {this.props.user}
           <img src={assets.userIcon} />
         </div>       

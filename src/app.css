@@ -110,6 +110,12 @@ button {
   z-index: 1;
 }
 
+.tile-likes {
+  position: absolute;
+  top: 0;
+  right: -110%;
+}
+
 .video-container {
   position: absolute;
   display: inline-grid;

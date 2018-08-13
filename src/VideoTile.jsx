@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+const assets = require('./assets.js');
 
 class Tile extends Component {
   constructor(props) {
@@ -14,10 +14,13 @@ class Tile extends Component {
           <img src={this.props.imageURL} />
            <br /> 
           <div className="tile-title">
-            {this.props.title}
+            {this.props.title} 
             <br />
             <br />
             <br />
+            <div className="tile-likes">
+              <img src={assets.thumbsUp}    style={{width: 15, height: 15, marginRight: 5, marginBottom: 12, marginTop: 12}}/>{this.props.likes}
+            </div>
           </div>
         </div>
     );
