@@ -33,7 +33,9 @@ class VideoContainer extends Component {
     this.renderTile = this.renderTile.bind(this);
     this.loadMore = this.loadMore.bind(this);
     this.sortAlphabetical = this.sortAlphabetical.bind(this);
-    this.sortCallback = this.sortCallback.bind(this);
+    this.sortCallbackA = this.sortCallbackA.bind(this);
+    this.sortPopular = this.sortPopular.bind(this);
+    this.sortCallbackP = this.sortCallbackP.bind(this);
   }
 
   renderTile(obj) {
@@ -79,25 +81,40 @@ class VideoContainer extends Component {
     delete info.undefined;
     
     for (let i = 0; i < this.state.limit; i++) {
-      if (urls[i] !== undefined) info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]};
+      if (keys[i] !== undefined) info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]};
     }
   }
 
-  // sorting could be a good use case for redux
+ 
   sortAlphabetical(obj) {
-    console.log('sort A clicked');
-    let newState = Object.keys(this.state.informationObject)
+    let newState = Object.keys(obj)
       .sort()
       .reduce((acc, title) => {
-        console.log('in reduce, accumulator ', acc);
-        acc[title] = this.state.informationObject[title];
+        acc[title] = obj[title];
         return acc;
       }, {});
     this.setState({ informationObject: newState });
   }
 
-  sortCallback() {
+  sortPopular(obj) {
+    // let videos = this.state.informationObject
+    let sorted = {};
+    Object.keys(obj).sort((a, b) => {
+      return obj[b].likes - obj[a].likes;
+    })
+    .forEach((key) => {
+      sorted[key] = obj[key];
+    });
+
+    this.setState({ informationObject: sorted });
+  }
+
+  sortCallbackA() {
     this.sortAlphabetical(this.state.informationObject);
+  }
+
+  sortCallbackP() {
+    this.sortPopular(this.state.informationObject)
   }
 
   componentDidMount() {
@@ -126,9 +143,9 @@ class VideoContainer extends Component {
             </div>
             <DropdownButton title="Recommended" noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
             {/*Put a callback here onClick to trigger state change and re-render container*/}
+              <MenuItem onSelect={this.sortCallbackA}>Alphabetical</MenuItem>
               <MenuItem>Recently Added</MenuItem>
-              <MenuItem>Most Popular</MenuItem>
-              <MenuItem onSelect={this.sortCallback}>Alphabetical</MenuItem>
+              <MenuItem onSelect={this.sortCallbackP}>Most Popular</MenuItem>
             </DropdownButton>
           </div>
           <div class="grid-item" >
