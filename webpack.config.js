@@ -50,5 +50,8 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [htmlPlugin],
+  node: {
+    fs: 'empty'
+  }
 };

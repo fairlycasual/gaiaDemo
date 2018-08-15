@@ -54,7 +54,9 @@ class App extends Component {
       let titlesArr = [];
       for (let i = 0; i < data.titles.length; i++) {
         let title = data.titles[i].title;
+        if (title !== undefined) {
         titlesArr.push(title);
+        }
       }
       this.setState({ titles: titlesArr });
     }
@@ -63,8 +65,8 @@ class App extends Component {
     generateLikes(data) {
       let likesArr = [];
       for (let i = 0; i < data.titles.length; i++) {
-        let title = data.titles[i].fivestar.up_count.value;
-        likesArr.push(title);
+        let likes = data.titles[i].fivestar.up_count.value;
+        likesArr.push(likes);
       }
       this.setState({ likes: likesArr });
     }
@@ -75,13 +77,11 @@ class App extends Component {
       for (let i = 0; i < data.titles.length; i++) {
         if (data.titles[i].feature) {
           let time = data.titles[i].feature.duration;
-          console.log('time', time);
           let minutes = Math.round(time / 60);
           timesArr.push(minutes + ' mins')
           
         } else {
           let seasons = data.titles[i].season_nums.length;
-          console.log('seasons', seasons);
           timesArr.push(seasons + ' Seasons');
           
         }
@@ -130,7 +130,6 @@ class App extends Component {
   }
   
   render() {
-    {console.log('in render, state: ', this.state)}
     return (
       <div id="app">
         <Header user={this.state.userName} />

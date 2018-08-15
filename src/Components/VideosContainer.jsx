@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tile from './VideoTile.jsx';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { access } from 'fs';
 
 
 function imagesLoaded(parentNode) {
@@ -31,10 +32,11 @@ class VideoContainer extends Component {
     this.generateStateObject = this.generateStateObject.bind(this);
     this.renderTile = this.renderTile.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.sortAlphabetical = this.sortAlphabetical.bind(this);
+    this.sortCallback = this.sortCallback.bind(this);
   }
 
   renderTile(obj) {
-    console.log('render tile object length: ', Object.keys(obj).length)
     let tileArr = [];
     for (let key in obj) {
      
@@ -67,30 +69,54 @@ class VideoContainer extends Component {
   loadMore() {
     let newLimit = this.state.limit + 20;
     this.setState({ limit: newLimit });
-    console.log('new limit: ', this.state.limit)
   }
 
   generateStateObject(videoTitle, videoLikes, videoTimes, imageURL) {
-    console.log('gso times: ', videoTimes);
     let keys = videoTitle;
     let urls = imageURL;
     let likes = videoLikes;
     let times = videoTimes;
+    delete info.undefined;
     
     for (let i = 0; i < this.state.limit; i++) {
-      info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]}
+      if (urls[i] !== undefined) info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]};
     }
   }
+
+  // sorting could be a good use case for redux
+  sortAlphabetical(obj) {
+    console.log('sort A clicked');
+    let newState = Object.keys(this.state.informationObject)
+      .sort()
+      .reduce((acc, title) => {
+        console.log('in reduce, accumulator ', acc);
+        acc[title] = this.state.informationObject[title];
+        return acc;
+      }, {});
+    this.setState({ informationObject: newState });
+  }
+
+  sortCallback() {
+    this.sortAlphabetical(this.state.informationObject);
+  }
+
+  componentDidMount() {
+    this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoTimes, this.props.videoThumbnails);
+    console.log('in component did mount, info:', info);
+    
+    this.setState({
+      informationObject: info
+    });
+  }
+
 
     render() {
       { if(this.props.videoTitles.length === 0) return null;
         this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoTimes, this.props.videoThumbnails)
       }
-      {console.log('info object in render ', info)}
 
       return (
         <div className="video-container" ref={element => { this.galleryElement = element; }}>
-          {console.log('in render, info object: ', info)}
           {this.renderSpinner()}
           <div className="dropdown-container">
             <div className="dropdown-text">
@@ -99,13 +125,14 @@ class VideoContainer extends Component {
               <br />
             </div>
             <DropdownButton title="Recommended" noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
+            {/*Put a callback here onClick to trigger state change and re-render container*/}
               <MenuItem>Recently Added</MenuItem>
               <MenuItem>Most Popular</MenuItem>
-              <MenuItem>Alphabetical</MenuItem>
+              <MenuItem onSelect={this.sortCallback}>Alphabetical</MenuItem>
             </DropdownButton>
           </div>
           <div class="grid-item" >
-            {this.renderTile(info)}
+            {this.renderTile(this.state.informationObject)}
           </div>
           <button onClick={this.loadMore} >
             LOAD MORE
