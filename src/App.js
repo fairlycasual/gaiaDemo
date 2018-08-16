@@ -23,6 +23,7 @@ class App extends Component {
       videoThumbnails: [],
       titles: [],
       likes: [],
+      createds: [],
       times: [],
       isLoggedIn: true,
       userName: 'DAVID',
@@ -89,6 +90,15 @@ class App extends Component {
       this.setState({ times: timesArr });
     }
 
+    generateCreatedAt(data) {
+      let datesArr = [];
+      for (let i = 0; i < data.titles.length; i++) {
+        let created = data.titles[i].fivestar.created;
+        datesArr.push(created);
+      }
+      this.setState({ createds: datesArr });
+    }
+
     // function to isolate hero banner image, pass as prop to Hero component
     generateHeroImg(data) {
       // eventually generate the array for screen sizes
@@ -135,7 +145,7 @@ class App extends Component {
         <Header user={this.state.userName} />
         <Navigation />
         <Hero backgroundImage={this.state.heroBanner} title={this.state.heroTitle} description={this.state.heroDescription} />
-        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  videoLikes={this.state.likes} videoTimes={this.state.times}/>
+        <VideoContainer videoThumbnails={this.state.videoThumbnails} videoTitles={this.state.titles}  videoLikes={this.state.likes} videoTimes={this.state.times} videoCreateds={this.state.createds}/>
       </div>
     );
   }

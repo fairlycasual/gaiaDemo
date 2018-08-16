@@ -36,6 +36,8 @@ class VideoContainer extends Component {
     this.sortCallbackA = this.sortCallbackA.bind(this);
     this.sortPopular = this.sortPopular.bind(this);
     this.sortCallbackP = this.sortCallbackP.bind(this);
+    this.sortRecent = this.sortRecent.bind(this);
+    this.sortCallbackR = this.sortCallbackR.bind(this);
   }
 
   renderTile(obj) {
@@ -73,7 +75,7 @@ class VideoContainer extends Component {
     this.setState({ limit: newLimit });
   }
 
-  generateStateObject(videoTitle, videoLikes, videoTimes, imageURL) {
+  generateStateObject(videoTitle, videoLikes, videoTimes, imageURL, dateAdded) {
     let keys = videoTitle;
     let urls = imageURL;
     let likes = videoLikes;
@@ -81,32 +83,43 @@ class VideoContainer extends Component {
     delete info.undefined;
     
     for (let i = 0; i < this.state.limit; i++) {
-      if (keys[i] !== undefined) info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i]};
+      if (keys[i] !== undefined) info[keys[i]] = {'url': urls[i], 'likes': likes[i], 'time': times[i], 'dateAdded': dateAdded[i]};
     }
   }
 
  
   sortAlphabetical(obj) {
-    let newState = Object.keys(obj)
+    let alphaSort = Object.keys(obj)
       .sort()
       .reduce((acc, title) => {
         acc[title] = obj[title];
         return acc;
       }, {});
-    this.setState({ informationObject: newState });
+    this.setState({ informationObject: alphaSort });
   }
 
   sortPopular(obj) {
-    // let videos = this.state.informationObject
-    let sorted = {};
+    let popularSort = {};
     Object.keys(obj).sort((a, b) => {
       return obj[b].likes - obj[a].likes;
     })
     .forEach((key) => {
-      sorted[key] = obj[key];
+      popularSort[key] = obj[key];
     });
 
-    this.setState({ informationObject: sorted });
+    this.setState({ informationObject: popularSort });
+  }
+
+  sortRecent(obj) {
+    let recentSort = {};
+    Object.keys(obj).sort((a, b) => {
+      return obj[a].videoCreateds - obj[b].videoCreateds;
+    })
+    .forEach((key) => {
+      recentSort[key] = obj[key];
+    });
+
+    this.setState({ informationObject: recentSort });
   }
 
   sortCallbackA() {
@@ -114,7 +127,11 @@ class VideoContainer extends Component {
   }
 
   sortCallbackP() {
-    this.sortPopular(this.state.informationObject)
+    this.sortPopular(this.state.informationObject);
+  }
+
+  sortCallbackR() {
+    this.sortRecent(this.state.informationObject);
   }
 
   componentDidMount() {
@@ -129,7 +146,7 @@ class VideoContainer extends Component {
 
     render() {
       { if(this.props.videoTitles.length === 0) return null;
-        this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoTimes, this.props.videoThumbnails)
+        this.generateStateObject(this.props.videoTitles, this.props.videoLikes, this.props.videoTimes, this.props.videoThumbnails, this.props.videoCreateds)
       }
 
       return (
@@ -144,7 +161,7 @@ class VideoContainer extends Component {
             <DropdownButton title="Recommended" noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
             {/*Put a callback here onClick to trigger state change and re-render container*/}
               <MenuItem onSelect={this.sortCallbackA}>Alphabetical</MenuItem>
-              <MenuItem>Recently Added</MenuItem>
+              <MenuItem onSelect={this.sortCallbackR}>Recently Added</MenuItem>
               <MenuItem onSelect={this.sortCallbackP}>Most Popular</MenuItem>
             </DropdownButton>
           </div>
