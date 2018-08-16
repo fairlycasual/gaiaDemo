@@ -156,7 +156,7 @@ class VideoContainer extends Component {
               <br />
               <br />
             </div>
-            <DropdownButton title="Recommended" noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
+            <DropdownButton title="Choose method " noCaret id="dropdown-size-medium" style={{width: "100%", border: "1px solid lightGrey"}}>
             {/*Put a callback here onClick to trigger state change and re-render container*/}
               <MenuItem onSelect={this.sortCallbackA}>Alphabetical</MenuItem>
               <MenuItem onSelect={this.sortCallbackR}>Recently Added</MenuItem>
