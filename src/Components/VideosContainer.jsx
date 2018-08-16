@@ -49,8 +49,6 @@ class VideoContainer extends Component {
         let likes = obj[key].likes;
         let time = obj[key].time
         tileArr.push(<Tile title={title} time={time} imageURL={url} likes={likes} />);
-      
-      
     }
     return tileArr;
   }
